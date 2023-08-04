@@ -1,59 +1,23 @@
-import React, { useState } from 'react';
-import axios from 'axios'; //solicitudes HTTP
+import React from 'react'; 
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Login from './components/login'; 
+import Administrador from './components/administrador';
+import Cocinero from './components/cocinero';
+import Mesero from './components/mesero';
 
-const MyComponent = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [response, setResponse] = useState(null);
-
-  const handleLogin = async () => {
-    const url = 'http://localhost:8080/login';
-    const data = {
-      email: email,
-      password: password,
-    };
-
-    try {
-      const response = await axios.post(url, data, {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-    
-      if (response.data) {
-        console.log(response.data.accessToken);
-        setResponse(response.data);
-      } else {
-        console.error('Respuesta del servidor en un formato inesperado:', response.data);
-      }
-    } catch (error) {
-      console.error(error);
-      alert(error.response.data)
-    }
-    
-  };
-
+const App = () => {
   return (
-    <div>
-      <div>
-        <label>Email:</label>
-        <input
-          type="text"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-      </div>
-      <div>
-        <label>Password:</label>
-        <input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-      </div>
-      <button onClick={handleLogin}>Iniciar sesión</button>
-    </div>
+    <Router>
+      <Routes> 
+          <Route path="/" element={<Login/>} />
+          <Route path="/administrador" element={<Administrador/>} />
+          <Route path="/cocinero" element={<Cocinero/>} />
+          <Route path="/mesero" element={<Mesero/>} />
+      </Routes>
+    </Router>
   );
 };
 
-export default MyComponent;
+
+export default App;
+
