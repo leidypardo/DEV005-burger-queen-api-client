@@ -32,7 +32,25 @@ const Desayuno = () => {
   };
 
   const handleProductoClick = (producto) => {
-    setProductosSeleccionados([...productosSeleccionados, producto]);
+    const productoExistente = productosSeleccionados.find((p) => p.id === producto.id);
+
+    if (productoExistente) {
+      const nuevosProductosSeleccionados = productosSeleccionados.map((p) =>
+        p.id === producto.id ? { ...p, cantidad: p.cantidad + 1 } : p
+      );
+      setProductosSeleccionados(nuevosProductosSeleccionados);
+    } else {
+      setProductosSeleccionados([...productosSeleccionados, { ...producto, cantidad: 1 }]);
+    }
+  };
+
+  const handleEliminarProducto = (productoId) => {
+    const nuevosProductosSeleccionados = productosSeleccionados.map((producto) =>
+      producto.id === productoId
+        ? { ...producto, cantidad: producto.cantidad - 1 }
+        : producto
+    ).filter((producto) => producto.cantidad > 0);
+    setProductosSeleccionados(nuevosProductosSeleccionados);
   };
 
   return (
@@ -59,10 +77,14 @@ const Desayuno = () => {
       </div>
       <div>
         <h2>Productos Seleccionados:</h2>
-        {productosSeleccionados.map((producto, index) => (
-          <div key={index}>
+        {productosSeleccionados.map((producto) => (
+          <div key={producto.id}>
             <p>Nombre: {producto.name}</p>
             <p>Precio: {producto.price}</p>
+            <p>Cantidad: {producto.cantidad}</p>
+            <button onClick={() => handleEliminarProducto(producto.id)}>
+              Eliminar
+            </button>
             <hr />
           </div>
         ))}
