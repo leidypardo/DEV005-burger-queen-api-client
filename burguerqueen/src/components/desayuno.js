@@ -11,7 +11,7 @@ const Desayuno = () => {
   let now = new Date();
   // Formatear el timestamp en el formato deseado
   let  timeorder = `${now.getFullYear()}/${(now.getMonth() + 1).toString().padStart(2, '0')}/${now.getDate().toString().padStart(2, '0')} ${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}:${now.getSeconds().toString().padStart(2, '0')}`;
-
+  
   //ver productos
   const seeProducts = async () => {
     const url = 'http://localhost:8080/products';
@@ -35,7 +35,7 @@ const Desayuno = () => {
       alert(error.response.data);
     }
   };
-
+seeProducts();
   //cuando se hace click en el producto
   const handleProductoClick = (producto) => {
     const productoExistente = productosSeleccionados.find((p) => p.id === producto.id);
@@ -130,7 +130,6 @@ const Desayuno = () => {
           </div>
         )}
       </div>
-        <button onClick={seeProducts}>ver</button>
       </div>
       <div>
         <h2>Menu:</h2>
