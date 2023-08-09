@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
 import axios from 'axios'; //solicitudes HTTP
 import { useNavigate } from 'react-router-dom';
+import imagen from '../imagenes/imagen.png';
+import iconoPassword from '../imagenes/iconoContraseña.png';
+import iconoCorreo from '../imagenes/iconoCorreo.png';
+import '../App.css'; 
 
 export let token = '';
 const Login = () => {
@@ -47,31 +51,43 @@ const Login = () => {
       
     };
     return (
-      <div>
-        <div>
-          <label>Email:</label>
-          <input
-            type="text"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </div>
-        <div>
-          <label>Password:</label>
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </div>
-        <button onClick={handleLogin}>Iniciar sesión</button>
-      </div>
+
+      <div className="ipad-pro">
+              <div className="overlap-group-wrapper">
+                  <div className="overlap-group">
+                      <div className="cuadro-decorativo" />
+                      <div className="cuadro-correo cuadro-correo-centrado">
+                        <input
+                          type="text"
+                          value={email}
+                          onChange={(e) => setEmail(e.target.value)}
+                          placeholder="Correo electrónico"
+                          style={{ textAlign: "center" }}  // Centra el texto horizontalmente
+                        />
+                      </div>
+
+
+                      
+                      <div className="cuadro-contrasea cuadro-contrasea-centrado">
+                        <input
+                          type="password"
+                          value={password}
+                          onChange={(e) => setPassword(e.target.value)}
+                          placeholder="************"
+                          style={{ textAlign: "center" }}  // Centra el texto horizontalmente
+                        />
+                      </div>
+                      <div className="boton-login-texto" onClick={handleLogin}>
+                        Iniciar sesión
+                      </div>
+                      <img className="imagen" alt="Imagen" src={imagen} />
+                      <img className="icono-correo" alt="Icono correo" src={iconoCorreo} />
+                      <img className="icono-contrasea" alt="Icono contrasea" src={iconoPassword} />
+                  </div>
+              </div>
+          </div>
+
+     
     );
   };
-  
   export default Login;
-
-
-
-
-

@@ -71,14 +71,26 @@ const Desayuno = () => {
   //crear order
   const createOrder = async () => {
     const url = 'http://localhost:8080/orders';
+    const productsForOrder = productosSeleccionados.map((producto) => ({
+      qty: producto.cantidad,
+      product: {
+        id: producto.id,
+        name: producto.name,
+        price: producto.price,
+        image: producto.image,
+        type: producto.type,
+        dataEntry: producto.dataEntry,
+      },
+    }));
+  
     const data = {
-        userId: idUsuario,
-        client: nombreUsuario,
-        products: productosSeleccionados,
-        status: "pending",
-        dateEntry:  timeorder,
-      };
-   
+      userId: idUsuario,
+      client: nombreUsuario,
+      products: productsForOrder,
+      status: "pending",
+      dataEntry: timeorder,
+    };
+  
     try {
       const response = await axios.post(url, data, {
         headers: {
@@ -86,20 +98,19 @@ const Desayuno = () => {
           Authorization: 'Bearer ' + token,
         },
       });
-    
-      if (response.data) { 
+  
+      if (response.data) {
         setResponse(response.data);
-        alert('Orden creada con exito! el ID asignado es: ' + response.data.id )
+        alert('Orden creada con éxito! El ID asignado es: ' + response.data.id);
         setNombreUsuario("");
         setIdUsuario("");
         setProductosSeleccionados([]);
-
       } else {
         console.error('Respuesta del servidor en un formato inesperado:', response.data);
       }
     } catch (error) {
       console.error(error);
-      alert(error.response.data)
+      alert(error.response.data);
     }
   };
  
